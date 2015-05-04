@@ -51,10 +51,6 @@ NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
           echo $FILE
           break
       ;;
-      2)
-	  echo "2 Esperando a que se termine el backup"
-          sleep 5
-      ;;
       *)
 	  echo "Hay mas de un backup en el directorio borrelos y comience de nuevo"
           break
