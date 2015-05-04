@@ -1,7 +1,10 @@
 # CPANEL BACKUP TO DROPBOX USING WGET
 Cpanel Backup using wget to pull it and dropbox as destination using dropbox uploader. Also ofuscation with SHC
+
 Requirements:
+
 https://github.com/andreafabrizi/Dropbox-Uploader
+
 Installed and configured to use API
 
 In order to avoid to have the password and username in plain text the recommendation is to use the following to ofuscate the code
