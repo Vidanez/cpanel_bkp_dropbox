@@ -16,9 +16,9 @@
 
 # Variables
 
-USERNAME=vidanez
-PASSWORD=R7Uugf8HVJ86LQDF
-VPS=vps13590.inmotionhosting.com
+USERNAME=
+PASSWORD=
+VPS=
 
 
 # Borrar Backup viejos
