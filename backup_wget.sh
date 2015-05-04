@@ -23,10 +23,10 @@ VPS=vps13590.inmotionhosting.com
 
 # Borrar Backup viejos
 echo "Borrando backup viejos"
-rm -rf /home/$USERNAME/backup*
+rm -f /home/$USERNAME/backup*
 
 #Generar backup
-echo "LLamando a backupwizard"
+echo "Llamando a backupwizard"
 wget -O /dev/null --http-user=$USERNAME --http-password=$PASSWORD https://$VPS:2083/frontend/x3/backup/wizard-dofullbackup.html --auth-no-challenge --post-data="dest=homedir&email=antoniogameznieto@gmail.com" --no-check-certificate
 if [ "$?" -gt "0" ]; then
     echo "FAILED calling backup wizard. Check configuration";
@@ -35,15 +35,19 @@ fi
 # Esperar que el backup se genere
 while true
 do
-NUMFILES=$(ls /home/$USERNAME/backup* | wc -l) 2>&1 >> /dev/null
+NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
   case $NUMFILES in
       0)
-          echo "0 Esperando a que se termine el backup"
+          DATE=`date +%Y-%m-%d:%H:%M:%S`
+          echo "Esperando a que se termine el backup"
+          echo $DATE
           sleep 5
       ;;
       1)
 	  echo "Backup listo"
-          FILE=$(ls /home/$USERNAME/backup*)
+          DATE=`date +%Y-%m-%d:%H:%M:%S`
+          echo $DATE
+          FILE=$(ls /home/$USERNAME/backup*.tar.gz)
           echo $FILE
           break
       ;;
@@ -59,6 +63,6 @@ NUMFILES=$(ls /home/$USERNAME/backup* | wc -l) 2>&1 >> /dev/null
 done
 
 #Subiendo el fichero
-/home/$USERNAME/bin/dropbox_uploader -d upload $FILE $FILE
-rm -rf /home/$USERNAME/backup*
+/home/$USERNAME/bin/dropbox_uploader -d upload $FILE $FILE > /dev/null 2>&1
+rm -f /home/$USERNAME/backup*
 
