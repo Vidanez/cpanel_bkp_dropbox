@@ -8,7 +8,7 @@ https://github.com/andreafabrizi/Dropbox-Uploader
 
 Installed and configured to use API
 
-In order to avoid to have the password and username in plain text the recommendation is to use the following to ofuscate the code
+In order to avoid to have the password and username in plain text the recommendation is to use the following to obfuscate the code
 
 http://www.datsi.fi.upm.es/~frosal/sources/shc-3.8.9.tgz 
 
