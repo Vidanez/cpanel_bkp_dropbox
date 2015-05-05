@@ -19,7 +19,8 @@
 USERNAME=
 PASSWORD=
 VPS=
-TIMEOUT=
+# Timeout per 5 second (12 equal 1 minute)
+TIMEOUT=24
 
 # Borrar Backup viejos
 echo "Borrando backup viejos"
@@ -33,7 +34,7 @@ if [ "$?" -gt "0" ]; then
 fi
 
 # Esperar que el backup se genere
-for {set x 1} {$x<=$TIMEOUT} {set x [expr {$x + 1}]} {
+for (( x=1; $x<=$TIMEOUT; x=$x+1 )){
   NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
   case $NUMFILES in
       0)
@@ -43,7 +44,8 @@ for {set x 1} {$x<=$TIMEOUT} {set x [expr {$x + 1}]} {
           sleep 5
       ;;
       1)
-	  echo "Backup listo"
+	  sleep 5 #Este sleep hace esperar el cambio del Inode en el file system
+          echo "Backup listo"
           DATE=`date +%Y-%m-%d:%H:%M:%S`
           echo $DATE
           FILE=$(ls /home/$USERNAME/backup*.tar.gz)
