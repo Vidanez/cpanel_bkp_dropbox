@@ -20,9 +20,11 @@ http://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 
 STEPS:
 
-mkdir /home/<username>/scripts
+mkdir /home/$username/scripts
 
-cd /home/<username>/scripts
+cd /home/$username/scripts
+
+wget https://github.com/Vidanez/cpanel_bkp_dropbox/cpanel_bkp_dropbox/backup_wget.sh
 
 curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o dropbox_uploader.sh
 
