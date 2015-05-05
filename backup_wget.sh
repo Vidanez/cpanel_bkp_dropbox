@@ -59,6 +59,5 @@ NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
 done
 
 #Subiendo el fichero
-/home/$USERNAME/bin/dropbox_uploader -d upload $FILE $FILE > /dev/null 2>&1
+/home/$USERNAME/bin/dropbox_uploader -q upload $FILE $FILE > /dev/null 2>&1
 rm -f /home/$USERNAME/backup*
-
