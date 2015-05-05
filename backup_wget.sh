@@ -19,11 +19,11 @@
 USERNAME=
 PASSWORD=
 VPS=
-
+TIMEOUT=
 
 # Borrar Backup viejos
 echo "Borrando backup viejos"
-rm -f /home/$USERNAME/backup*
+rm -f /home/$USERNAME/backup*.tar.gz
 
 #Generar backup
 echo "Llamando a backupwizard"
@@ -33,9 +33,8 @@ if [ "$?" -gt "0" ]; then
 fi
 
 # Esperar que el backup se genere
-while true
-do
-NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
+for {set x 1} {$x<=$TIMEOUT} {set x [expr {$x + 1}]} {
+  NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
   case $NUMFILES in
       0)
           DATE=`date +%Y-%m-%d:%H:%M:%S`
@@ -56,8 +55,8 @@ NUMFILES=$(ls /home/$USERNAME/backup*.tar.gz | wc -l) > /dev/null 2>&1
           break
       ;;
   esac
-done
+}
 
 #Subiendo el fichero
 /home/$USERNAME/scripts/dropbox_uploader.sh -q upload $FILE $FILE > /dev/null 2>&1
-rm -f /home/$USERNAME/backup*
+rm -f $FILE
